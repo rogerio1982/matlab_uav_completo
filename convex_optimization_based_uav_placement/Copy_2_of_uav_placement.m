@@ -39,9 +39,9 @@ Y = data(: ,2);
 %% Plotting each of the Gaussian Dsitributions.
 scatter(X,Y ,idx)
 
-title('Users ');
-xlabel('X Distance');
-ylabel('Y Distance');
+title('Users Distributed ');
+xlabel('500 meters');
+ylabel('500 meters');
 %% Getting the K-Means Centroids and Clusters
 
 num_of_centroids = num_of_clusters;
@@ -53,6 +53,8 @@ for i = 1:num_of_centroids
     k_means_clusters{i} = [X(idx==i),Y(idx==i)] ;
 end
 
+
+
 %% Generating Random Points for Placing the the Random UAVs
 
 start_range_random = start_range_mean - sqrt(end_range_var);
@@ -62,27 +64,6 @@ X_random = start_range_random + (end_range_random - start_range_random) * ...
 Y_random = start_range_random + (end_range_random - start_range_random) * ...
     rand(num_of_clusters, 1);
 random_centroids = [X_random, Y_random];
-
-
-%% Plotting the K-Means Centroids
-
-figure('Name', 'K Means Centroids', 'units','normalized','outerposition', ...
-    [0 0 1 1]);
-
-gscatter(X, Y, idx);
-hold on;
-p_centroids = plot(centroids(:,1), centroids(:,2), 'kx', 'MarkerSize', ...
-    15, 'LineWidth', 10, 'DisplayName','Centroids'); 
-hold off;
-
-%%%%
-
-
-%%%%
-legend([p_centroids], 'Centroids');
-title('K Means Centroids');
-xlabel('X Distance');
-ylabel('Y Distance');
 
 
 %% Getting the optimal UAV power, height, coverage area, and the users served per Cluster
@@ -110,27 +91,16 @@ end
 
 % salvo no arquivo optimal_data
 
-%% Getting the optimal UAV locations for the UAV Relays
-% Obtendo as localizações de UAV ideais para RETRANSMISSAO de UAV
 
 
-% Two are required as we can have two optimal locations. 
-uav_1 = [];
-uav_2 = [];
 
-% Parameters that can be changed according to the experiments.
-x_bs = mean(centroids(:, 1));
-y_bs = mean(centroids(:, 2));
-P_bs = 0.5;
-P_uav = power_threshold;
-bw_bs = 0.1;
-bw_uav  = 0.5;
-h_relay= 0.1;
-h_bs = 0.1;
-capacity_thresh = 200;
+%% Plotting 2d the K-Means Centroids
 
+figure('Name', 'K Means Centroids', 'units','normalized','outerposition', ...
+    [0 0 1 1]);
 
-%% Plotting 2d
+gscatter(X, Y, idx);
+
 p_centroid = plot(centroids(:,1), centroids(:,2), 'kx', 'MarkerSize', 10, 'LineWidth', 3); 
 hold on;
 p_center = plot(x_bs, y_bs, 'ks', 'MarkerSize', 10, 'LineWidth', 3);
@@ -142,9 +112,9 @@ hold on;
 legend([p_centroid,p_center], 'UAV', 'Base Station');
 %legend([p_centroid],'UAVs')
 
-title('Coverage UAV Base stations ');
-xlabel('X Distance');
-ylabel('Y Distance');
+title('2D Coverage UAV Base stations ');
+xlabel('500 meters');
+ylabel('500 meters');
 %text(centroids(:,1) + dx, centroids(:,2) + dy, numbered_labelling_uav);
 %text(x_bs + dx, y_bs + dy, numbered_labelling_bs);
 
@@ -180,9 +150,9 @@ hold on;
 legend([p_centroid,p_center], 'UAV', 'Base Station');
 %legend([p_centroid],'UAVs')
 
-title('Coverage UAV Base stations ');
-xlabel('X Distance');
-ylabel('Y Distance');
+title(' 3D Coverage UAV Base stations ');
+xlabel('500 meters');
+ylabel('500 meters');
 
 
 
