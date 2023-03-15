@@ -37,7 +37,7 @@ Y = data(: ,2);
 
 
 %% Plotting each of the Gaussian Dsitributions.
-scatter(X,Y ,idx)
+scatter(X,Y )
 
 title('Users Distributed ');
 xlabel('500 meters');
@@ -55,15 +55,7 @@ end
 
 
 
-%% Generating Random Points for Placing the the Random UAVs
 
-start_range_random = start_range_mean - sqrt(end_range_var);
-end_range_random = end_range_mean + sqrt(end_range_var);
-X_random = start_range_random + (end_range_random - start_range_random) * ... 
-    rand(num_of_clusters, 1);
-Y_random = start_range_random + (end_range_random - start_range_random) * ...
-    rand(num_of_clusters, 1);
-random_centroids = [X_random, Y_random];
 
 
 %% Getting the optimal UAV power, height, coverage area, and the users served per Cluster
@@ -95,18 +87,24 @@ end
 
 
 %% Plotting 2d the K-Means Centroids
+x_bs = mean(centroids(:, 1));
+y_bs = mean(centroids(:, 2));
+
 
 figure('Name', 'K Means Centroids', 'units','normalized','outerposition', ...
     [0 0 1 1]);
 
-gscatter(X, Y, idx);
 
-p_centroid = plot(centroids(:,1), centroids(:,2), 'kx', 'MarkerSize', 10, 'LineWidth', 3); 
+
+%users = scatter(X, Y, idx);
+users = scatter(X, Y);
 hold on;
-p_center = plot(x_bs, y_bs, 'ks', 'MarkerSize', 10, 'LineWidth', 3);
+
+p_centroid = plot(centroids(:,1), centroids(:,2), 'kx', 'MarkerSize', 20, 'LineWidth', 3); 
 hold on;
-users = scatter(X, Y, idx);
+p_center = plot(x_bs, y_bs, 'ks', 'MarkerSize', 20, 'LineWidth', 3);
 hold on;
+
 %axis equal;
 
 legend([p_centroid,p_center], 'UAV', 'Base Station');
@@ -130,8 +128,13 @@ for i=1:num_of_centroids
     x_circle_uav = centroids(i, 1) ;
     y_circle_uav = centroids(i, 2) ;
     z = duration(0,50,1);
+
     
-    plot3(x_circle_uav,y_circle_uav,z,'X','DurationTickFormat','mm:ss')
+ 
+    %plot3(x_circle_uav,y_circle_uav,z,'X','DurationTickFormat','mm:ss')
+    plot3(x_circle_uav,y_circle_uav,z,'X','MarkerSize',20)
+
+
     xlabel('X')
     ylabel('Y')
     zlabel('height')
@@ -139,11 +142,11 @@ for i=1:num_of_centroids
 end
 
 
-p_centroid = plot(centroids(:,1), centroids(:,2), 'kx', 'MarkerSize', 10, 'LineWidth', 3); 
-hold on;
-p_center = plot(x_bs, y_bs, 'ks', 'MarkerSize', 10, 'LineWidth', 3);
-hold on;
-users = gscatter(X, Y, idx);
+%p_centroid = plot(centroids(:,1), centroids(:,2), 'kx', 'MarkerSize', 20, 'LineWidth', 3); 
+%hold on;
+%p_center = plot(x_bs, y_bs, 'ks', 'MarkerSize', 20, 'LineWidth', 3);
+%hold on;
+users = gscatter(X, Y, idx,"",".",20);
 hold on;
 %axis equal;
 
